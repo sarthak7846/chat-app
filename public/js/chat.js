@@ -38,6 +38,7 @@ const autoscroll = () => {
     }
 };
 
+//Receiving Text Message
 socket.on('message', (message) => {
     console.log(message);
     const html = Mustache.render(messageTemplate, {
@@ -49,6 +50,7 @@ socket.on('message', (message) => {
     autoscroll();
 });
 
+//Receiving Location Message
 socket.on('locationMessage', (message) => {
     console.log(message);
     const html = Mustache.render(locationMessageTemplate, {
@@ -95,6 +97,7 @@ $sendLocationButton.addEventListener('click', () => {
     $sendLocationButton.setAttribute('disabled', 'disabled');
 
     navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position);
         socket.emit('sendLocation', {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude
